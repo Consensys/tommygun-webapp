@@ -1,14 +1,21 @@
 <template>
-  <div>
+  <div class="ml-4 mr-4 mt-4">
     <b-form class="ml-2 mr-2" @reset="reset" @submit="createAccounts">
       <b-alert v-model="alert.success.show" class="mt-3" dismissible variant="success">
         {{ alert.success.message }}
       </b-alert>
+      <b-input-group class="mt-2" prepend="Number of accounts">
+        <b-form-input
+            v-model="form.accountNumber"
+            placeholder="Enter account number"
+            required
+            type="number"
+        ></b-form-input>
+      </b-input-group>
 
-      <b-form-row class="mt-2 ml-1">
-        <b-button class="mr-2" type="submit" variant="primary">Fire</b-button>
-        <b-button class="ml-2" type="reset" variant="danger">Reset</b-button>
-      </b-form-row>
+      <b-button class="mr-2 mt-2" type="submit" variant="primary">Fire</b-button>
+      <b-button class="ml-2 mt-2" type="reset" variant="danger">Reset</b-button>
+
     </b-form>
   </div>
 </template>
@@ -25,12 +32,17 @@ export default {
           message: '',
         },
       },
-      form: {},
+      form: {
+        accountNumber: 1,
+      },
     }
   },
   methods: {
-    createAccounts(evt) {
+    async createAccounts(evt) {
       evt.preventDefault();
+      const fireResponse = await this.$store.state.services.fire.fireAccounts(this.form.accountNumber);
+      this.alert.success.message = `task submitted with id: ${fireResponse.taskID}`;
+      this.alert.success.show = true;
     },
     reset(evt) {
       evt.preventDefault();

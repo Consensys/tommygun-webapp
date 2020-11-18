@@ -7,6 +7,8 @@ import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 import router from './router'
 import TaskService from "../services/TaskService";
+import FireService from "../services/FireService";
+import StateService from "../services/StateService";
 
 Vue.config.productionTip = false;
 Vue.use(Vuex);
@@ -19,6 +21,8 @@ const store = new Vuex.Store({
             backend: {
                 url: 'http://127.0.0.1:8080',
                 taskAPIRoot: 'task/',
+                fireAPIRoot: 'fire',
+                stateAPIRoot: 'state',
             }
         },
     },
@@ -36,5 +40,7 @@ new Vue({
 function services(settings) {
     return {
         task: new TaskService(settings),
+        fire: new FireService(settings),
+        state: new StateService(settings),
     };
 }
