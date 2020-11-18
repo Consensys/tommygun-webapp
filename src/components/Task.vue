@@ -16,7 +16,13 @@ export default {
   name: "Task",
   data() {
     return {
-      fields: ['identifier', 'name', 'status', 'start', 'end', 'duration'],
+      fields: [
+        {key: 'identifier'},
+        {key: 'name', sortable: true},
+        {key: 'status', sortable: true},
+        {key: 'start', sortable: true},
+        {key: 'end', sortable: true},
+        {key: 'duration', sortable: true}],
       tasks: [],
     }
   },
