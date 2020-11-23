@@ -57,6 +57,21 @@
         </td>
         <td v-else></td>
       </tr>
+      <tr>
+        <td>Accounts created using smart contract</td>
+        <td v-if="accountInfo==null"></td>
+        <td v-else>{{ accountInfo.accountsCreated }}</td>
+      </tr>
+      <tr>
+        <td>Last created account address</td>
+        <td v-if="accountInfo==null"></td>
+        <td v-else>{{ accountInfo.lastCreatedAddress }}</td>
+      </tr>
+      <tr>
+        <td>Storage entries in smart contract</td>
+        <td v-if="stateInfo==null"></td>
+        <td v-else>{{ stateInfo.stateEntriesNumber }}</td>
+      </tr>
       </tbody>
     </table>
   </div>
@@ -68,10 +83,14 @@ export default {
   data() {
     return {
       globalConfig: null,
+      accountInfo: null,
+      stateInfo: null,
     }
   },
-  async mounted() {
-    this.globalConfig = await this.$store.state.services.info.globalConfig();
+  mounted() {
+    this.$store.state.services.info.globalConfig().then(result => this.globalConfig = result);
+    this.$store.state.services.account.getInfo().then(result => this.accountInfo = result);
+    this.$store.state.services.state.getInfo().then(result => this.stateInfo = result);
   },
 }
 </script>

@@ -16,8 +16,19 @@ export default class AccountService {
         }
     }
 
+    async getInfo() {
+        try {
+            this.refreshConfig();
+            const response = await axios.get(this.infoEndpoint);
+            return response.data;
+        } catch (error) {
+            console.log("error", error);
+        }
+    }
+
     refreshConfig() {
         this.apiRoot = `${this.settings.backend.url}/${this.settings.backend.accountAPIRoot}`;
         this.deployEndpoint = `${this.apiRoot}/contract/deploy`;
+        this.infoEndpoint = `${this.apiRoot}/contract/info`;
     }
 }
