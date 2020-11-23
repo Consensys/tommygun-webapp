@@ -15,7 +15,7 @@
 
       <b-button class="mr-2 mt-2" type="submit" variant="primary">Fire</b-button>
       <b-button class="ml-2 mt-2" type="reset" variant="danger">Reset</b-button>
-
+      <b-button class="ml-2 mt-2" @click="deployContract">Deploy contract</b-button>
     </b-form>
   </div>
 </template>
@@ -38,6 +38,11 @@ export default {
     }
   },
   methods: {
+    async deployContract() {
+      const response = await this.$store.state.services.account.deployContract();
+      this.alert.success.message = `contract deployed at: ${response.deployedContractAddress}`;
+      this.alert.success.show = true;
+    },
     async createAccounts(evt) {
       evt.preventDefault();
       const fireResponse = await this.$store.state.services.fire.fireAccounts(this.form.accountNumber);

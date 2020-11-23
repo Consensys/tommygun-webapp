@@ -4,6 +4,7 @@ import Home from '@/components/Home'
 import Account from '@/components/Account'
 import Storage from "@/components/Storage";
 import Task from "@/components/Task";
+import Info from "@/components/Info";
 
 Vue.use(VueRouter);
 
@@ -27,6 +28,11 @@ const routes = [
         path: '/task',
         name: 'task',
         component: Task,
+    },
+    {
+        path: '/info',
+        name: 'info',
+        component: Info,
     }
 ];
 

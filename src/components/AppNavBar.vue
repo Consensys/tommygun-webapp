@@ -15,7 +15,10 @@
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
         <b-nav-form>
-          <b-button variant="light" @click="onClickSettings">
+          <b-button class="btn-nav" variant="link" @click="navToInfo">
+            <b-icon aria-hidden="true" icon="info-square"></b-icon>
+          </b-button>
+          <b-button class="btn-nav" variant="link" @click="onClickSettings">
             <b-icon aria-hidden="true" icon="gear-fill"></b-icon>
           </b-button>
         </b-nav-form>
@@ -40,6 +43,9 @@ export default {
     navToTask() {
       this.$router.push({path: '/task'});
     },
+    navToInfo() {
+      this.$router.push({path: '/info'});
+    },
     onClickSettings() {
       this.$bvModal.show('modal-settings');
     },
@@ -48,5 +54,7 @@ export default {
 </script>
 
 <style scoped>
-
+.btn-nav {
+  color: black;
+}
 </style>

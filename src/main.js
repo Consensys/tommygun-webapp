@@ -9,6 +9,8 @@ import router from './router'
 import TaskService from "../services/TaskService";
 import FireService from "../services/FireService";
 import StateService from "../services/StateService";
+import AccountService from "../services/AccountService";
+import InfoService from "../services/InfoService";
 
 Vue.config.productionTip = false;
 Vue.use(Vuex);
@@ -23,6 +25,7 @@ const store = new Vuex.Store({
                 taskAPIRoot: 'task/',
                 fireAPIRoot: 'fire',
                 stateAPIRoot: 'state',
+                accountAPIRoot: 'account',
             }
         },
     },
@@ -42,5 +45,7 @@ function services(settings) {
         task: new TaskService(settings),
         fire: new FireService(settings),
         state: new StateService(settings),
+        account: new AccountService(settings),
+        info: new InfoService(settings),
     };
 }
