@@ -40,6 +40,8 @@ new Vue({
     store,
 }).$mount('#app');
 
+router.push({path: '/'});
+
 function services(settings) {
     return {
         task: new TaskService(settings),
