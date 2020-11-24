@@ -1,6 +1,6 @@
 <template>
   <div class="ml-4 mr-4 mt-4">
-    <div  v-if="displayTasks()">
+    <div v-if="displayTasks()">
       <b-table
           :fields="fields"
           :items="tasks"
@@ -47,23 +47,25 @@ export default {
     clearInterval(this.timer)
   },
   methods: {
-    async displayTasks(){
+    async displayTasks() {
       return Array.isArray(this.tasks) && this.tasks.length;
     },
-    async refreshTasks(){
+    async refreshTasks() {
       const tasks = await this.$store.state.services.task.getAll();
-      if(JSON.stringify(tasks) !== JSON.stringify(this.lastTasks)) {
+      if (JSON.stringify(tasks) !== JSON.stringify(this.lastTasks)) {
         this.tasks = [];
         tasks.forEach(task => {
-          this.tasks.push({
-            identifier: task.id,
-            name: task.name,
-            status: task.status,
-            start: task.startedAt,
-            end: task.endedAt,
-            errorMessage: task.errorMessage,
-            duration: task.durationMillis,
-          });
+          if (task.name !== 'fire') {
+            this.tasks.push({
+              identifier: task.id,
+              name: task.name,
+              status: task.status,
+              start: task.startedAt,
+              end: task.endedAt,
+              errorMessage: task.errorMessage,
+              duration: task.durationMillis,
+            });
+          }
         });
         this.lastTasks = tasks;
       }
